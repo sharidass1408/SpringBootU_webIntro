@@ -1,4 +1,4 @@
-package com.haridass.springboot.basics.springbootin10steps;
+package com.haridass.springboot.basics.springbootin10steps.helloworld;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

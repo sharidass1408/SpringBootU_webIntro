@@ -1,4 +1,4 @@
-package com.haridass.springboot.basics.springbootin10steps;
+package com.haridass.springboot.basics.springbootin10steps.helloworld;
 
 public class HelloWorldBean {
 

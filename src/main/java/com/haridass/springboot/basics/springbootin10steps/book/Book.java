@@ -1,4 +1,4 @@
-package com.haridass.springboot.basics.springbootin10steps;
+package com.haridass.springboot.basics.springbootin10steps.book;
 
 public class Book {
 	
