@@ -1,6 +1,7 @@
 package com.haridass.springboot.basics.springbootin10steps.user;
 
 import java.net.URI;
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,12 @@ public class UserResource {
 	//GET /users/{id}
 	@GetMapping("/user/{id}")
 	public User retrieveUser(@PathVariable int id){
-		return userDaoService.findOne(id);
+		User user = userDaoService.findOne(id);
+		if(user == null){
+			throw new UserNotFoundException("id -" + id);
+		}
+		
+		return user;
 	}
 	
 	@PostMapping("/users")
