@@ -6,6 +6,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*; 
 
 @RestController
 public class UserResource {
@@ -29,13 +32,20 @@ public class UserResource {
 	
 	//GET /users/{id}
 	@GetMapping("/user/{id}")
-	public User retrieveUser(@PathVariable int id){
+	public Resource<User> retrieveUser(@PathVariable int id){
 		User user = userDaoService.findOne(id);
 		if(user == null){
 			throw new UserNotFoundException("id -" + id);
 		}
 		
-		return user;
+		//HEATOs
+		//retriveAll Users
+		Resource<User> resource = new Resource<User>(user);
+		ControllerLinkBuilder linkTo = 
+				linkTo(methodOn(this.getClass()).retrieveAllUsers());
+		resource.add(linkTo.withRel("all-users"));
+		
+		return resource;
 	}
 	
 	@PostMapping("/users")
@@ -60,6 +70,9 @@ public class UserResource {
 		if(user == null){
 			throw new UserNotFoundException("id-" + id);
 		}
+		
+		//HATEOAS
+		
 		
 		return user;
 	}
