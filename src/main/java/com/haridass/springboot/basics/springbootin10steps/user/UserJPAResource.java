@@ -54,7 +54,7 @@ public class UserJPAResource {
 	
 	@PostMapping("/jpa/users")
 	public ResponseEntity<Object> saveUser(@Valid @RequestBody User user){
-		User savedUser = userDaoService.save(user);
+		User savedUser = userRepository.save(user);
 		// CREATED
 		// /user/{id} savedUser.getId()
 		URI location = ServletUriComponentsBuilder
@@ -67,18 +67,10 @@ public class UserJPAResource {
 	}
 	
 	
-	@DeleteMapping("/jpa/user/{id}")
-	public User deleteUser(@PathVariable int id){
-		User user = userDaoService.deleteById(id);
+	@DeleteMapping("/jpa/users/{id}")
+	public void deleteUser(@PathVariable int id){
+		userRepository.deleteById(id);
 		
-		if(user == null){
-			throw new UserNotFoundException("id-" + id);
-		}
-		
-		//HATEOAS
-		
-		
-		return user;
 	}
 	
 	
