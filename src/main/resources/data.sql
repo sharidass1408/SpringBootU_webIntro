@@ -1,3 +1,3 @@
-insert into user values(1,sysdate(),'AB');
-insert into user values(2,sysdate(),'jz');
-insert into user values(3,sysdate(),'boy');
+insert into user values(101,sysdate(),'AB');
+insert into user values(201,sysdate(),'jz');
+insert into user values(301,sysdate(),'boy');
