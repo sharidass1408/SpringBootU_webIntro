@@ -35,21 +35,16 @@ public class UserJPAResource {
 	}
 	
 	//GET /users/{id}
-	@GetMapping("/jpa/user/{id}")
-	public Resource<User> retrieveUser(@PathVariable int id){
-		Optional<User> user = userRepository.findById(id);
-		if(!user.isPresent()){
+	//To test this use below url
+	// http://localhost:8080/jpa/user/101/posts
+	@GetMapping("/jpa/user/{id}/posts")
+	public List<Post> retrieveUser(@PathVariable int id){
+		Optional<User> userOptional = userRepository.findById(id);
+		if(!userOptional.isPresent()){
 			throw new UserNotFoundException("id -" + id);
 		}
 		
-		//HEATOs
-		//retriveAll Users
-		Resource<User> resource = new Resource<User>(user.get());
-		ControllerLinkBuilder linkTo = 
-				linkTo(methodOn(this.getClass()).retrieveAllUsers());
-		resource.add(linkTo.withRel("all-users"));
-		
-		return resource;
+		return userOptional.get().getPosts();
 	}
 	
 	@PostMapping("/jpa/users")
